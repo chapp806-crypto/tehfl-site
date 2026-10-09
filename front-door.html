@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SIGNAL Front Door</title><meta name="description" content="Bring what’s on your mind. Start the conversation."><link rel="stylesheet" href="styles.css"></head><body>
-<nav class="nav"><div class="nav-inner"><a class="brand" href="signal.html"><div class="brand-mark">S</div><div><div class="brand-text">SIGNAL</div><div class="brand-sub">Front Door</div></div></a><div class="small">Your answers stay in this browser in this review build.</div><a class="btn" href="signal.html">About SIGNAL</a></div></nav>
+<nav class="nav"><div class="nav-inner"><a class="brand" href="signal.html"><div class="brand-mark">S</div><div><div class="brand-text">SIGNAL</div><div class="brand-sub">Front Door</div></div></a><div class="small">Your progress is saved as you go.</div><a class="btn" href="signal.html">About SIGNAL</a></div></nav>
 <div class="frontdoor-wrap"><div class="fd-card">
-<div class="fd-step active" id="fd0"><div class="fd-meta">Welcome</div><h2>Bring what’s on your mind.</h2><p>Not what sounds important. Not what you think you should talk about. Just the thing that naturally keeps asking for your attention.</p><div class="note">This review build demonstrates the participant experience. Live registration, email, text, and spreadsheet automation will be connected behind this same flow.</div><div class="fd-actions"><span></span><button class="btn primary" onclick="go(1)">Start the conversation →</button></div></div>
+<div class="fd-step active" id="fd0"><div class="fd-meta">Welcome</div><h2>Bring what’s on your mind.</h2><p>Not what sounds important. Not what you think you should talk about. Just the thing that naturally keeps asking for your attention.</p><div class="note">Start with one real thing that has your attention. Your progress will be saved so you can keep moving without starting over.</div><div class="fd-actions"><span></span><button class="btn primary" onclick="go(1)">Start the conversation →</button></div></div>
 <div class="fd-step" id="fd1"><div class="fd-meta">1 • Signal Spotting</div><h2>What are you noticing?</h2><p>Do not explain it perfectly yet. Just name what keeps surfacing.</p><textarea id="notice" placeholder="Something I keep noticing is..."></textarea><div class="fd-actions"><button class="btn" onclick="go(0)">← Back</button><button class="btn primary" onclick="need('notice',2)">Continue →</button></div></div>
 <div class="fd-step" id="fd2"><div class="fd-meta">Save your place</div><h2>What should we call you?</h2><p>We ask for just enough information to save your place. The rest can wait until registration.</p><div class="summary-grid"><input id="first" placeholder="First name"><input id="email" type="email" placeholder="Email"></div><div class="fd-actions"><button class="btn" onclick="go(1)">← Back</button><button class="btn primary" onclick="contactNext()">Save & continue →</button></div></div>
 <div class="fd-step" id="fd3"><div class="fd-meta">2 • Signal or Noise?</div><h2>Does this deserve your attention — or is it simply competing for it?</h2><div class="choices"><button class="choice" onclick="choose(this,'This keeps repeating')">This keeps repeating</button><button class="choice" onclick="choose(this,'This feels unusually important')">This feels unusually important</button><button class="choice" onclick="choose(this,'This may just be noise')">This may just be noise</button><button class="choice" onclick="choose(this,'I do not know yet')">I don’t know yet</button></div><div class="fd-actions"><button class="btn" onclick="go(2)">← Back</button><button class="btn primary" onclick="go(4)">Look underneath →</button></div></div>
@@ -9,10 +9,136 @@
 <div class="fd-step" id="fd5"><div class="fd-meta">4 • Identify Needs</div><h2>What might this be asking from you right now?</h2><p>Attention? Information? Rest? Support? A boundary? A conversation? Action? More time?</p><textarea id="needs" placeholder="What this may need is..."></textarea><div class="fd-actions"><button class="btn" onclick="go(4)">← Back</button><button class="btn primary" onclick="go(6)">Continue →</button></div></div>
 <div class="fd-step" id="fd6"><div class="fd-meta">5 • Nurture the Long Harvest</div><h2>What needs time? Allow it.</h2><p>Some things need movement. Some need room. What could you stop forcing long enough to observe?</p><textarea id="grace" placeholder="I can give this time by..."></textarea><div class="fd-actions"><button class="btn" onclick="go(5)">← Back</button><button class="btn primary" onclick="go(7)">Start the conversation →</button></div></div>
 <div class="fd-step" id="fd7"><div class="fd-meta">6 • Bring it with you</div><h2>What would you want to talk through with real people?</h2><p>You do not need a conclusion. Bring the thing that still has energy, tension, curiosity, or uncertainty around it.</p><textarea id="conversation" placeholder="The conversation I want to bring is..."></textarea><div class="fd-actions"><button class="btn" onclick="go(6)">← Back</button><button class="btn primary" onclick="showSummary()">See what I’m bringing →</button></div></div>
-<div class="fd-step" id="fd8"><div class="fd-meta">You’ve already started</div><h2>Here’s what became clearer.</h2><div class="summary-grid" id="summary"></div><div class="note" style="margin-top:14px"><strong>Next:</strong> the live system will complete registration here, write the record to Jaymie’s tracker, and trigger confirmation/reminder follow-up automatically.</div><div class="fd-actions"><button class="btn" onclick="go(7)">← Revisit</button><button class="btn gold" onclick="go(9)">Complete registration →</button></div></div>
-<div class="fd-step" id="fd9"><div class="fd-meta">Conversation Lab registration</div><h2>Only what’s still missing.</h2><div class="summary-grid"><input id="last" placeholder="Last name"><input id="mobile" placeholder="Mobile number"></div><label style="display:flex;gap:10px;margin-top:14px;align-items:flex-start;color:var(--ink-soft);font-size:13px"><input id="share" type="checkbox" checked style="width:auto;margin-top:3px"><span>Share my SIGNAL reflection with Jaymie before the Lab so the conversation can begin deeper.</span></label><div class="note" style="margin-top:14px">Review mode: this button does not yet send email/text or write to the live sheet. Those are the next external connections.</div><div class="fd-actions"><button class="btn" onclick="go(8)">← Back</button><button class="btn primary" onclick="complete()">Register + save SIGNAL →</button></div></div>
-<div class="fd-step" id="fd10"><div class="fd-meta">Review complete</div><h2>Come curious. Leave with greater clarity.</h2><p>Your review record is saved locally in this browser. In production, this same moment will write to the registrant tracker and trigger the confirmation sequence.</p><div class="note" id="completeText"></div><div class="fd-actions"><a class="btn" href="signal.html">Back to SIGNAL</a><button class="btn primary" onclick="resetFlow()">Run again</button></div></div>
+<div class="fd-step" id="fd8"><div class="fd-meta">You’ve already started</div><h2>Here’s what became clearer.</h2><div class="summary-grid" id="summary"></div><div class="note" style="margin-top:14px"><strong>Your SIGNAL is saved.</strong> If you choose to register, we’ll keep this reflection connected to your event record.</div><div class="fd-actions"><button class="btn" onclick="go(7)">← Revisit</button><button class="btn gold" onclick="go(9)">Complete registration →</button></div></div>
+<div class="fd-step" id="fd9"><div class="fd-meta">Conversation Lab registration</div><h2>Only what’s still missing.</h2><div class="summary-grid"><input id="last" placeholder="Last name"><input id="mobile" placeholder="Mobile number"></div><label style="display:flex;gap:10px;margin-top:14px;align-items:flex-start;color:var(--ink-soft);font-size:13px"><input id="share" type="checkbox" checked style="width:auto;margin-top:3px"><span>Share my SIGNAL reflection with Jaymie before the Lab so the conversation can begin deeper.</span></label><div class="note" style="margin-top:14px">When you register, your event record and SIGNAL reflection are saved together.</div><div class="fd-actions"><button class="btn" onclick="go(8)">← Back</button><button class="btn primary" onclick="complete()">Register + save SIGNAL →</button></div></div>
+<div class="fd-step" id="fd10"><div class="fd-meta">Registration saved</div><h2>Come curious. Leave with greater clarity.</h2><p>Your registration and SIGNAL reflection have been sent to the participant tracker.</p><div class="note" id="completeText"></div><div class="fd-actions"><a class="btn" href="signal.html">Back to SIGNAL</a><button class="btn primary" onclick="resetFlow()">Run again</button></div></div>
 </div></div>
 <script>
-let signalChoice="";const key="signalFrontDoorV1";function val(id){return(document.getElementById(id)?.value||"").trim()}function go(n){document.querySelectorAll(".fd-step").forEach(x=>x.classList.remove("active"));document.getElementById("fd"+n).classList.add("active");window.scrollTo({top:0,behavior:"smooth"});save()}function need(id,n){if(!val(id)){document.getElementById(id).focus();return}go(n)}function contactNext(){if(!val("first")){first.focus();return}if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val("email"))){email.focus();return}go(3)}function choose(el,v){signalChoice=v;document.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));el.classList.add("selected");save()}function data(){return{first:val("first"),email:val("email"),notice:val("notice"),signal:signalChoice,under:val("under"),needs:val("needs"),grace:val("grace"),conversation:val("conversation"),last:val("last"),mobile:val("mobile"),share:document.getElementById("share")?.checked??true}}function save(){localStorage.setItem(key,JSON.stringify(data()))}function esc(s){return(s||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}function showSummary(){save();let d=data(),rows=[["What you’re noticing",d.notice],["Signal vs. Noise",d.signal||"Still deciding"],["The Signal Under the Signal",d.under||"Still forming"],["What this may need",d.needs||"Still forming"],["What needs time / grace",d.grace||"Still forming"],["Conversation to bring",d.conversation||"Still forming"]];summary.innerHTML=rows.map(r=>`<div class="sum"><b>${esc(r[0])}</b>${esc(r[1])}</div>`).join("");go(8)}function complete(){if(!val("last")){last.focus();return}if(!val("mobile")){mobile.focus();return}save();let d=data();completeText.innerHTML=`<strong>${esc(d.first)} ${esc(d.last)}</strong><br>${esc(d.email)} • ${esc(d.mobile)}<br><br>Status: Review completed • Share preference: ${d.share?"Full reflection":"Private"}`;go(10)}function resetFlow(){localStorage.removeItem(key);location.reload()}(function(){let x=localStorage.getItem(key);if(!x)return;try{let d=JSON.parse(x);["first","email","notice","under","needs","grace","conversation","last","mobile"].forEach(k=>{let el=document.getElementById(k);if(el&&d[k])el.value=d[k]});signalChoice=d.signal||""}catch(e){}})();document.querySelectorAll("textarea,input").forEach(el=>el.addEventListener("input",save));
+const ENDPOINT="https://script.google.com/macros/s/AKfycbw7eR8C42tmKX-_JR3cgjjb24KP-nBlzLmvjN63S1AbBOFdP5qZ3glfQbcUIdTxnDPy/exec";
+const key="signalFrontDoorV1";
+const idKey="signalRegistrantIdV1";
+const startedKey="signalStartedAtV1";
+let signalChoice="";
+let registrantId=localStorage.getItem(idKey);
+if(!registrantId){
+  registrantId="SIG-"+Date.now().toString(36).toUpperCase()+"-"+Math.random().toString(36).slice(2,7).toUpperCase();
+  localStorage.setItem(idKey,registrantId);
+}
+if(!localStorage.getItem(startedKey)) localStorage.setItem(startedKey,new Date().toISOString());
+
+function val(id){return(document.getElementById(id)?.value||"").trim()}
+function go(n){
+  document.querySelectorAll(".fd-step").forEach(x=>x.classList.remove("active"));
+  document.getElementById("fd"+n).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+  saveLocal();
+}
+function need(id,n){if(!val(id)){document.getElementById(id).focus();return}go(n)}
+function choose(el,v){
+  signalChoice=v;
+  document.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));
+  el.classList.add("selected");
+  saveLocal();
+}
+function data(){
+  return{
+    registrantId,
+    startedAt:localStorage.getItem(startedKey),
+    firstName:val("first"),
+    lastName:val("last"),
+    email:val("email"),
+    mobile:val("mobile"),
+    notice:val("notice"),
+    signalVsNoise:signalChoice,
+    signalUnderSignal:val("under"),
+    needs:val("needs"),
+    grace:val("grace"),
+    conversation:val("conversation"),
+    sharePreference:(document.getElementById("share")?.checked??true)?"Full Reflection":"Private",
+    event:"Oct 29 Conversation Lab",
+    source:"SIGNAL Front Door"
+  }
+}
+function saveLocal(){localStorage.setItem(key,JSON.stringify(data()))}
+function esc(s){return(s||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
+
+async function sendToTracker(action,extra={}){
+  const payload={action,...data(),...extra};
+  try{
+    await fetch(ENDPOINT,{
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify(payload),
+      keepalive:true
+    });
+    return true;
+  }catch(err){
+    console.error("SIGNAL tracker write failed",err);
+    return false;
+  }
+}
+
+async function contactNext(){
+  if(!val("first")){first.focus();return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val("email"))){email.focus();return}
+  saveLocal();
+  const btn=document.activeElement;
+  if(btn){btn.disabled=true;btn.textContent="Saving…"}
+  await sendToTracker("saveProgress",{registrationStatus:"In Progress",signalCompleted:false});
+  if(btn){btn.disabled=false;btn.textContent="Save & continue →"}
+  go(3);
+}
+
+async function showSummary(){
+  saveLocal();
+  let d=data(),rows=[
+    ["What you’re noticing",d.notice],
+    ["Signal vs. Noise",d.signalVsNoise||"Still deciding"],
+    ["The Signal Under the Signal",d.signalUnderSignal||"Still forming"],
+    ["What this may need",d.needs||"Still forming"],
+    ["What needs time / grace",d.grace||"Still forming"],
+    ["Conversation to bring",d.conversation||"Still forming"]
+  ];
+  summary.innerHTML=rows.map(r=>`<div class="sum"><b>${esc(r[0])}</b>${esc(r[1])}</div>`).join("");
+  await sendToTracker("saveProgress",{registrationStatus:"In Progress",signalCompleted:true});
+  go(8);
+}
+
+async function complete(){
+  if(!val("last")){last.focus();return}
+  if(!val("mobile")){mobile.focus();return}
+  saveLocal();
+  const btn=document.activeElement;
+  if(btn){btn.disabled=true;btn.textContent="Registering…"}
+  const ok=await sendToTracker("register",{registrationStatus:"Registered",signalCompleted:true,registeredAt:new Date().toISOString()});
+  if(btn){btn.disabled=false;btn.textContent="Register + save SIGNAL →"}
+  let d=data();
+  completeText.innerHTML=`<strong>${esc(d.firstName)} ${esc(d.lastName)}</strong><br>${esc(d.email)} • ${esc(d.mobile)}<br><br>Status: Registered • Share preference: ${esc(d.sharePreference)}${ok?"":"<br><br><strong>Connection issue:</strong> your browser kept your answers, but the tracker may need another submission."}`;
+  go(10);
+}
+
+function resetFlow(){
+  localStorage.removeItem(key);
+  localStorage.removeItem(idKey);
+  localStorage.removeItem(startedKey);
+  location.reload();
+}
+
+(function restore(){
+  let x=localStorage.getItem(key);
+  if(!x)return;
+  try{
+    let d=JSON.parse(x);
+    const map={first:"firstName",email:"email",notice:"notice",under:"signalUnderSignal",needs:"needs",grace:"grace",conversation:"conversation",last:"lastName",mobile:"mobile"};
+    Object.entries(map).forEach(([id,k])=>{let el=document.getElementById(id);if(el&&d[k])el.value=d[k]});
+    signalChoice=d.signalVsNoise||"";
+    if(signalChoice){
+      document.querySelectorAll(".choice").forEach(el=>{if(el.textContent.trim()===signalChoice)el.classList.add("selected")});
+    }
+    if(document.getElementById("share") && d.sharePreference==="Private") document.getElementById("share").checked=false;
+  }catch(e){}
+})();
+
+document.querySelectorAll("textarea,input").forEach(el=>el.addEventListener("input",saveLocal));
 </script></body></html>
